@@ -15,15 +15,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Timer _timer;
 
   Future getData() async {
-    var url = 'https://pruebasbotanax.000webhostapp.com/getClients.php';
-    http.Response response = await http.get(url);
+    var url = "https://pruebasbotanax.000webhostapp.com/Pedidos/getPedidoID.php";
+    final response = await http.post(url,
+      body: {
+        "nombre": "Luis Orlando Avila Garcia",
+        "pedido": "Pasta, Tiritas de pescado, Yoli"
+      });
+
     var data = jsonDecode(response.body);
 
-    status = data[0]["nombre"];
+    print(data);
+
+    status = data[0]["estatus"];
 
     print(status);
 
-    if (status == "AAA") estatusPedido = "Orden recibida";
+    switch (status) {
+      case "1": estatusPedido = "Orden recibida";
+        break;
+      case "2": estatusPedido = "Preparando la orden";
+        break;
+    }
 
     print(estatusPedido);
 
@@ -38,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     getData();
 
     //Check the server every 5 seconds
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) => getData());
+    _timer = Timer.periodic(Duration(seconds: 2), (timer) => getData());
 
     super.initState();
   }

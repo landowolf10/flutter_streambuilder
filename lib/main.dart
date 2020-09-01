@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:realtime_update/src/pages/pedido_page.dart';
 import 'package:realtime_update/src/pages/prueba.dart';
 
 void main() {
